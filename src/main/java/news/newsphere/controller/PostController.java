@@ -1,11 +1,13 @@
 package news.newsphere.controller;
 
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import news.newsphere.dto.PostRequest;
 import news.newsphere.dto.PostResponse;
 import news.newsphere.service.PostService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -26,5 +28,10 @@ public class PostController {
         PostResponse postResponse = postService.createPost(postRequest,cleanedToken);
         return ResponseEntity.ok().body(postResponse);
     }
-
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostResponse>> getAllPost()
+    {
+        List<PostResponse> postList = postService.getAllPost();
+        return ResponseEntity.ok(postList);
+    }
 }

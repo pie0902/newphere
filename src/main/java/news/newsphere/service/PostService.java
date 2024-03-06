@@ -1,5 +1,8 @@
 package news.newsphere.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import news.newsphere.dto.PostRequest;
 import news.newsphere.dto.PostResponse;
@@ -8,6 +11,7 @@ import news.newsphere.entity.User;
 import news.newsphere.repository.PostRepository;
 import news.newsphere.repository.UserRepository;
 import news.newsphere.utils.JwtUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,5 +37,13 @@ public class PostService {
         postRepository.save(post);
         PostResponse postResponse = new PostResponse(post);
         return postResponse;
+    }
+    //게시글 전체조회
+    public List<PostResponse> getAllPost() {
+        List<Post> postList = postRepository.findAll();
+        List<PostResponse> postResponses = postList.stream()
+            .map(post -> new PostResponse(post))
+            .collect(Collectors.toList());
+        return postResponses;
     }
 }
