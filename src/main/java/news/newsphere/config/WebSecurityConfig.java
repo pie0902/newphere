@@ -3,7 +3,7 @@ package news.newsphere.config;
 
 import java.util.Arrays;
 import java.util.List;
-import news.newsphere.utils.JwtTokenFilter;
+import news.newsphere.utils.JwtAuthenticationFilter;
 import news.newsphere.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,8 +26,8 @@ public class WebSecurityConfig {
     @Autowired
     private JwtUtil jwtUtil; // 필드 주입 또는 생성자 주입을 사용하세요
     @Bean
-    public JwtTokenFilter jwtTokenFilter() {
-        return new JwtTokenFilter(jwtUtil); // JwtUtil 인스턴스를 사용하여 JwtTokenFilter 생성
+    public JwtAuthenticationFilter jwtTokenFilter() {
+        return new JwtAuthenticationFilter(jwtUtil); // JwtUtil 인스턴스를 사용하여 JwtTokenFilter 생성
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
