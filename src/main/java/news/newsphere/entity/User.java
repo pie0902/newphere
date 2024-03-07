@@ -28,4 +28,8 @@ public class User {
         this.email = userSignupRequest.getEmail();
         this.password = pw;
     }
+    public User(String username,String email){
+        this.username = username;
+        this.email = email;
+    }
 }
