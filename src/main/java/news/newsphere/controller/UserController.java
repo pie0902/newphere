@@ -1,12 +1,13 @@
 package news.newsphere.controller;
 
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import news.newsphere.dto.UserResponse;
 import news.newsphere.dto.UserSigninRequest;
 import news.newsphere.dto.UserSignupRequest;
-import news.newsphere.dto.UserResponse;
 import news.newsphere.service.UserService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,10 +26,11 @@ public class UserController{
         return ResponseEntity.ok().body(userResponse);
     }
     @PostMapping("/signin")
-    public ResponseEntity<UserResponse> signin(@RequestBody UserSigninRequest userSigninRequest,
-        HttpServletResponse res){
+    public ResponseEntity<UserResponse> signin(@RequestBody UserSigninRequest userSigninRequest) {
         UserResponse userResponse = userService.signin(userSigninRequest);
-        res.addHeader("Authorization","Bearer "+userResponse.getToken());
-        return ResponseEntity.ok().body(userResponse);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + userResponse.getToken());
+        return new ResponseEntity<>(userResponse, headers, HttpStatus.OK);
     }
+
 }

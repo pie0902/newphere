@@ -9,8 +9,6 @@ import news.newsphere.entity.Post;
 import news.newsphere.entity.User;
 import news.newsphere.repository.PostRepository;
 import news.newsphere.repository.UserRepository;
-import news.newsphere.utils.CustomUserDetails;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service

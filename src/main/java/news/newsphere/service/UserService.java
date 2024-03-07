@@ -1,6 +1,8 @@
 package news.newsphere.service;
 
 
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import news.newsphere.dto.UserResponse;
 import news.newsphere.dto.UserSigninRequest;
@@ -45,10 +47,11 @@ public class UserService {
         if (!matches) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+        // 역할을 List<String>으로 변환
+        List<String> roles = Collections.singletonList(loginUser.getUserRoleEnum().getKey());
         // JWT 토큰 생성
-        String token = jwtUtil.generateToken(loginUser.getId());
+        String token = jwtUtil.createToken(loginUser.getEmail(), roles);
         // UserResponse 생성 및 반환
-        UserResponse userResponse = new UserResponse(loginUser, token);
-        return userResponse;
+        return new UserResponse(loginUser, token);
     }
 }

@@ -5,8 +5,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import news.newsphere.dto.PostRequest;
 import news.newsphere.dto.PostResponse;
+import news.newsphere.entity.User;
 import news.newsphere.service.PostService;
-import news.newsphere.utils.CustomUserDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class PostController {
     @PostMapping("/posts")
     public ResponseEntity<PostResponse> createPost(
         @RequestBody PostRequest postRequest,
-        @AuthenticationPrincipal CustomUserDetails userDetails)
+        @AuthenticationPrincipal User userDetails)
     {
             PostResponse postResponse = postService.createPost(postRequest, userDetails.getId()); // 인증 객체를 직접 전달
             return ResponseEntity.ok().body(postResponse);
