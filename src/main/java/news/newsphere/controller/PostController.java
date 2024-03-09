@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,11 +26,10 @@ public class PostController {
     @PostMapping("/posts")
     public ResponseEntity<PostResponse> createPost(
         @RequestBody PostRequest postRequest,
-        @RequestHeader(value = "Authorization") String token)
+        @AuthenticationPrincipal User userDetails)
     {
-        String cleanedToken = token.startsWith("Bearer ") ? token.substring(7) : token;
-        PostResponse postResponse = postService.createPost(postRequest,cleanedToken);
-        return ResponseEntity.ok().body(postResponse);
+            PostResponse postResponse = postService.createPost(postRequest, userDetails.getId()); // 인증 객체를 직접 전달
+            return ResponseEntity.ok().body(postResponse);
     }
     //전체조회
     @GetMapping("/posts")

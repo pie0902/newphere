@@ -3,30 +3,41 @@ package news.newsphere.config;
 
 import java.util.Arrays;
 import java.util.List;
+import news.newsphere.utils.JwtAuthenticationFilter;
+import news.newsphere.utils.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
+    @Autowired
+    private JwtUtil jwtUtil; // 필드 주입 또는 생성자 주입을 사용하세요
+    @Bean
+    public JwtAuthenticationFilter jwtTokenFilter() {
+        return new JwtAuthenticationFilter(jwtUtil); // JwtUtil 인스턴스를 사용하여 JwtTokenFilter 생성
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return
+            http.csrf(AbstractHttpConfigurer::disable)
             .cors(Customizer.withDefaults())
             .authorizeHttpRequests(request ->
                 request.anyRequest().permitAll())
+            .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class) // JwtTokenFilter 추가
             .build();
     }
 
