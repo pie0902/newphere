@@ -24,21 +24,30 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
     @Autowired
     private JwtUtil jwtUtil; // 필드 주입 또는 생성자 주입을 사용하세요
+
     @Bean
     public JwtAuthenticationFilter jwtTokenFilter() {
         return new JwtAuthenticationFilter(jwtUtil); // JwtUtil 인스턴스를 사용하여 JwtTokenFilter 생성
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return
-            http.csrf(AbstractHttpConfigurer::disable)
-            .cors(Customizer.withDefaults())
-            .authorizeHttpRequests(request ->
-                request.anyRequest().permitAll())
-            .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class) // JwtTokenFilter 추가
-            .build();
+            http.csrf(AbstractHttpConfigurer::disable).formLogin(auth -> auth.disable())
+                .httpBasic(auth -> auth.disable())
+                .cors(Customizer.withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(
+                    SessionCreationPolicy.STATELESS)) // 세션 정책을 STATELESS로 설정
+                .authorizeHttpRequests(request ->
+                    request.requestMatchers("/", "/api/signin", "/api/signup")
+                        .permitAll() // 특정 경로에 대해 모든 사용자에게 접근 허용
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtTokenFilter(),
+                    UsernamePasswordAuthenticationFilter.class) // JwtTokenFilter 추가
+                .build();
     }
 
     @Bean

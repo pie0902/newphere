@@ -30,7 +30,7 @@ public class UserController{
         UserResponse userResponse = userService.signin(userSigninRequest);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + userResponse.getToken());
-        return new ResponseEntity<>(userResponse, headers, HttpStatus.OK);
+        return new ResponseEntity<>(userResponse,headers,HttpStatus.OK);
     }
 
 }
