@@ -1,4 +1,4 @@
-package news.newsphere.entity;
+package news.newsphere.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import news.newsphere.dto.UserSignupRequest;
+import news.newsphere.dto.user.UserSignupRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,15 +32,28 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private UserRoleEnum userRoleEnum; // 사용자 권한
-    public User(UserSignupRequest userSignupRequest,String pw) {
+
+    public User(UserSignupRequest userSignupRequest, String pw) {
         this.username = userSignupRequest.getUsername();
         this.email = userSignupRequest.getEmail();
         this.password = pw;
         this.userRoleEnum = UserRoleEnum.USER;
     }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(this.userRoleEnum.getKey()));
+        // 단일 UserRoleEnum 인스턴스를 사용하여 GrantedAuthority 컬렉션을 생성
+        return Collections.singletonList(new SimpleGrantedAuthority(userRoleEnum.getKey()));
     }
 
     @Override
@@ -66,5 +79,8 @@ public class User implements UserDetails {
         // 여기에 계정 활성 상태 로직 구현
         return true;
     }
-
 }
+
+//
+
+

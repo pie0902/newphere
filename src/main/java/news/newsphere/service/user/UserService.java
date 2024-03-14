@@ -1,14 +1,12 @@
-package news.newsphere.service;
+package news.newsphere.service.user;
 
 
-import java.util.Collections;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import news.newsphere.dto.UserResponse;
-import news.newsphere.dto.UserSigninRequest;
-import news.newsphere.dto.UserSignupRequest;
-import news.newsphere.entity.User;
-import news.newsphere.repository.UserRepository;
+import news.newsphere.dto.user.UserResponse;
+import news.newsphere.dto.user.UserSigninRequest;
+import news.newsphere.dto.user.UserSignupRequest;
+import news.newsphere.entity.user.User;
+import news.newsphere.repository.comment.UserRepository;
 import news.newsphere.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,11 +45,10 @@ public class UserService {
         if (!matches) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        // 역할을 List<String>으로 변환
-        List<String> roles = Collections.singletonList(loginUser.getUserRoleEnum().getKey());
         // JWT 토큰 생성
-        String token = jwtUtil.createToken(loginUser.getEmail(), roles);
+        String token = jwtUtil.createToken(loginUser.getEmail(),loginUser.getUserRoleEnum());
         // UserResponse 생성 및 반환
-        return new UserResponse(loginUser, token);
+        UserResponse userResponse = new UserResponse(loginUser, token);
+        return userResponse;
     }
 }

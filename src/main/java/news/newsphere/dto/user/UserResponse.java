@@ -1,8 +1,8 @@
-package news.newsphere.dto;
+package news.newsphere.dto.user;
 
 
 import lombok.Getter;
-import news.newsphere.entity.User;
+import news.newsphere.entity.user.User;
 
 @Getter
 public class UserResponse {

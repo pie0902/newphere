@@ -1,7 +1,7 @@
 package news.newsphere.utils;
 
 import lombok.RequiredArgsConstructor;
-import news.newsphere.repository.UserRepository;
+import news.newsphere.repository.comment.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
-
     private final UserRepository userRepository;
 
     @Override

@@ -1,4 +1,4 @@
-package news.newsphere.entity;
+package news.newsphere.entity.post;
 
 
 import jakarta.persistence.Entity;
@@ -12,7 +12,8 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import news.newsphere.dto.PostRequest;
+import news.newsphere.dto.post.PostRequest;
+import news.newsphere.entity.user.User;
 
 @Getter
 @NoArgsConstructor

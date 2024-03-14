@@ -1,11 +1,11 @@
-package news.newsphere.controller;
+package news.newsphere.controller.user;
 
 
 import lombok.RequiredArgsConstructor;
-import news.newsphere.dto.UserResponse;
-import news.newsphere.dto.UserSigninRequest;
-import news.newsphere.dto.UserSignupRequest;
-import news.newsphere.service.UserService;
+import news.newsphere.dto.user.UserResponse;
+import news.newsphere.dto.user.UserSigninRequest;
+import news.newsphere.dto.user.UserSignupRequest;
+import news.newsphere.service.user.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class UserController{
         UserResponse userResponse = userService.signin(userSigninRequest);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + userResponse.getToken());
-        return new ResponseEntity<>(userResponse, headers, HttpStatus.OK);
+        return new ResponseEntity<>(userResponse,headers,HttpStatus.OK);
     }
 
 }

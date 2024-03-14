@@ -1,7 +1,7 @@
-package news.newsphere.dto;
+package news.newsphere.dto.post;
 
 import lombok.Getter;
-import news.newsphere.entity.Post;
+import news.newsphere.entity.post.Post;
 
 @Getter
 public class PostResponse {

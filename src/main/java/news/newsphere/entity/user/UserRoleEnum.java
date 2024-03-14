@@ -1,4 +1,4 @@
-package news.newsphere.entity;
+package news.newsphere.entity.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,3 +11,10 @@ public enum UserRoleEnum {
     private final String key;
     private final String title;
 }
+
+//좋아요,북마크,댓글,팔로잉
+//팔로잉 테이블 (user_id)
+
+//같은 repository를 impl 형태로 spring data jpa,queryDSL(join문사용,sub query)
+//JPQL(검색해보자)
+//(리프레시토큰 레디스)
