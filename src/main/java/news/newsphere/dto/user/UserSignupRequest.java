@@ -1,4 +1,4 @@
-package news.newsphere.dto;
+package news.newsphere.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

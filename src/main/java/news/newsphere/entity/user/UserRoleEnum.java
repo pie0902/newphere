@@ -1,4 +1,4 @@
-package news.newsphere.entity;
+package news.newsphere.entity.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

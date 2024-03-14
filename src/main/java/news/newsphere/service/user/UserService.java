@@ -1,14 +1,12 @@
-package news.newsphere.service;
+package news.newsphere.service.user;
 
 
-import java.util.Collections;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import news.newsphere.dto.UserResponse;
-import news.newsphere.dto.UserSigninRequest;
-import news.newsphere.dto.UserSignupRequest;
-import news.newsphere.entity.User;
-import news.newsphere.repository.UserRepository;
+import news.newsphere.dto.user.UserResponse;
+import news.newsphere.dto.user.UserSigninRequest;
+import news.newsphere.dto.user.UserSignupRequest;
+import news.newsphere.entity.user.User;
+import news.newsphere.repository.comment.UserRepository;
 import news.newsphere.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

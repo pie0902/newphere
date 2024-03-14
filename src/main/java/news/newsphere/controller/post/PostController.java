@@ -1,13 +1,12 @@
-package news.newsphere.controller;
+package news.newsphere.controller.post;
 
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import news.newsphere.dto.PostRequest;
-import news.newsphere.dto.PostResponse;
-import news.newsphere.entity.User;
-import news.newsphere.service.PostService;
-import org.springframework.http.HttpStatus;
+import news.newsphere.dto.post.PostRequest;
+import news.newsphere.dto.post.PostResponse;
+import news.newsphere.entity.user.User;
+import news.newsphere.service.post.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;

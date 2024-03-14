@@ -1,15 +1,15 @@
-package news.newsphere.service;
+package news.newsphere.service.post;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import news.newsphere.dto.PostRequest;
-import news.newsphere.dto.PostResponse;
-import news.newsphere.entity.Post;
-import news.newsphere.entity.User;
-import news.newsphere.repository.PostRepository;
-import news.newsphere.repository.UserRepository;
+import news.newsphere.dto.post.PostRequest;
+import news.newsphere.dto.post.PostResponse;
+import news.newsphere.entity.post.Post;
+import news.newsphere.entity.user.User;
+import news.newsphere.repository.post.PostRepository;
+import news.newsphere.repository.comment.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service

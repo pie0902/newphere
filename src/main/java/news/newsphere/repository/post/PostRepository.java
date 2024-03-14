@@ -1,13 +1,11 @@
-package news.newsphere.repository;
+package news.newsphere.repository.post;
 
 
 import java.util.List;
-import java.util.Optional;
-import news.newsphere.entity.Post;
+import news.newsphere.entity.post.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.expression.spel.ast.OpAnd;
 
 public interface PostRepository extends JpaRepository<Post,Long> {
     @Query("SELECT p FROM Post p JOIN FETCH p.user")
