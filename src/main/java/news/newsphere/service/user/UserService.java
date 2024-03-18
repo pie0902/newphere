@@ -6,7 +6,7 @@ import news.newsphere.dto.user.UserResponse;
 import news.newsphere.dto.user.UserSigninRequest;
 import news.newsphere.dto.user.UserSignupRequest;
 import news.newsphere.entity.user.User;
-import news.newsphere.repository.comment.UserRepository;
+import news.newsphere.repository.user.UserRepository;
 import news.newsphere.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
