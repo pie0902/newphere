@@ -9,7 +9,7 @@ import news.newsphere.dto.post.PostResponse;
 import news.newsphere.entity.post.Post;
 import news.newsphere.entity.user.User;
 import news.newsphere.repository.post.PostRepository;
-import news.newsphere.repository.comment.UserRepository;
+import news.newsphere.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service

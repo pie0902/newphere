@@ -1,7 +1,7 @@
 package news.newsphere.utils;
 
 import lombok.RequiredArgsConstructor;
-import news.newsphere.repository.comment.UserRepository;
+import news.newsphere.repository.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

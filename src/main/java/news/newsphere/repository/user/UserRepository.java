@@ -1,4 +1,4 @@
-package news.newsphere.repository.comment;
+package news.newsphere.repository.user;
 
 import java.util.Optional;
 import news.newsphere.entity.user.User;
