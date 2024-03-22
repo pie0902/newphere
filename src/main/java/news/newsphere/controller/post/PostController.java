@@ -1,12 +1,19 @@
 package news.newsphere.controller.post;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import news.newsphere.dto.PageResponse;
 import news.newsphere.dto.post.PostRequest;
 import news.newsphere.dto.post.PostResponse;
+import news.newsphere.entity.post.Post;
 import news.newsphere.entity.user.User;
+import news.newsphere.service.RssService;
 import news.newsphere.service.post.PostService;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,11 +40,23 @@ public class PostController {
         return ResponseEntity.ok().body(postResponse);
     }
     //전체조회
+//    @GetMapping("/posts")
+//    public ResponseEntity<List<PostResponse>> getAllPost()
+//    {
+//        List<PostResponse> postList = postService.getAllPost();
+//        return ResponseEntity.ok(postList);
+//    }
+
     @GetMapping("/posts")
-    public ResponseEntity<List<PostResponse>> getAllPost()
-    {
-        List<PostResponse> postList = postService.getAllPost();
-        return ResponseEntity.ok(postList);
+    public ResponseEntity<PageResponse<PostResponse>> getPosts(
+        @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<PostResponse> postPage = postService.getAllPost(pageable); // 가정: 서비스 메서드 수정 필요
+        int totalItems = (int) postPage.getTotalElements();
+        int totalPages = postPage.getTotalPages();
+        int currentPage = postPage.getNumber();
+
+        PageResponse<PostResponse> response = new PageResponse<>(postPage.getContent(), currentPage, totalItems, totalPages);
+        return ResponseEntity.ok(response);
     }
     //선택조회
     @GetMapping("/posts/{postId}")

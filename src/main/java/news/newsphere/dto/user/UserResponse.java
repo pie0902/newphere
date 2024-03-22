@@ -1,10 +1,13 @@
 package news.newsphere.dto.user;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import news.newsphere.entity.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
+@AllArgsConstructor
 public class UserResponse {
     private String username;
     private String email;

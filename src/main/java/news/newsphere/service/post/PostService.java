@@ -10,6 +10,8 @@ import news.newsphere.entity.post.Post;
 import news.newsphere.entity.user.User;
 import news.newsphere.repository.post.PostRepository;
 import news.newsphere.repository.user.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,14 +29,9 @@ public class PostService {
             .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         return new PostResponse(postRepository.save(new Post(postRequest, foundUser)));
     }
-
-    //게시글 전체조회
-    public List<PostResponse> getAllPost() {
-        List<Post> postList = postRepository.findAllWithUser();
-        List<PostResponse> postResponses = postList.stream()
-            .map(post -> new PostResponse(post))
-            .collect(Collectors.toList());
-        return postResponses;
+    public Page<PostResponse> getAllPost(Pageable pageable) {
+        Page<Post> postPage = postRepository.findAllWithUserUsePageble(pageable); // 변경: 페이징 처리를 위한 메서드 사용
+        return postPage.map(post -> new PostResponse(post)); // 변경: Page 객체를 직접 변환
     }
 
     public PostResponse getPost(Long postId) {
@@ -58,8 +55,10 @@ public class PostService {
 
     //게시글 삭제 메서드
     public void deletePost(Long postId, Long userId) {
-        Post post = postRepository.findById(postId).orElseThrow(()->new RuntimeException("게시글을 찾을 수 없습니다."));
-        User user = userRepository.findById(userId).orElseThrow(()->new RuntimeException("사용자를 찾을 수 없습니다."));
+        Post post = postRepository.findById(postId)
+            .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
         if (!user.getId().equals(post.getUser().getId())) {
             throw new IllegalArgumentException("해당 포스트를 수정할 권한이 없습니다.");
         }
@@ -70,8 +69,19 @@ public class PostService {
     ) {
         List<Post> postList = postRepository.findByUserIds(userIds);
         List<PostResponse> postResponseList = postList.stream()
-            .map(post->new PostResponse(post))
+            .map(post -> new PostResponse(post))
             .collect(Collectors.toList());
         return postResponseList;
     }
 }
+
+//
+//    //게시글 전체조회
+//    public List<PostResponse> getAllPost(Pageable pageable) {
+//        List<Post> postList = postRepository.findAllWithUser();
+//        List<PostResponse> postResponses = postList.stream()
+//            .map(post -> new PostResponse(post))
+//            .collect(Collectors.toList());
+//        return postResponses;
+//    }
+// 게시글 전체조회 with 페이징

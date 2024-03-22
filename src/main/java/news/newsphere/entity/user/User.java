@@ -2,6 +2,7 @@ package news.newsphere.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import java.util.Collections;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import news.newsphere.dto.user.UserSignupRequest;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
